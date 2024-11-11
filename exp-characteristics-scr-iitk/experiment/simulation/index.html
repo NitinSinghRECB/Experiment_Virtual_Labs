@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css" />
+    <script src="./js/main.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div id="mySidepanel" class="sidepanel">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      <ul id="lists">
+        <h2>Procedure to Perform the Experiment.</h2>
+        <li>Step 1: Select the Mode the select menu.</li>
+        <li>
+          Step 2: Complete the Connections using the input section in each mode.
+        </li>
+        <li>
+          Step 3: Turn on the power and vary the sliders to get the readings in
+          ammeter and Voltmeter.
+        </li>
+        <li>Step 4: Find the breakover voltage and fill the table.</li>
+        <li>Step 5: Note down the table or print the current page.</li>
+      </ul>
+    </div>
+    <button class="openbtn" onclick="openNav()">☰ Open Procedure</button>
+    <center>
+      <select
+        id="image-select"
+        class="form-select"
+        aria-label="Default select example"
+        style="width: 20%"
+      >
+        <option value="image0">Select an image</option>
+        <option value="image1">FORWARD BLOCKING MODE</option>
+        <option value="image2">REVERSE BLOCKING MODE</option>
+        <option value="image3">FORWARD CONDUCTION MODE</option>
+      </select>
+    </center>
+    <div id="svgimg" class="svgclass">
+      <div class="colwise">
+        <div class="imageload">
+          <object
+            id="svg-object"
+            type="image/svg+xml"
+            data="./images/SCR2.0 img 0.svg"
+            id="svg-object"
+          ></object>
+        </div>
+        <div id="inputsec0" class="inputo">
+          <h3>Apparatus Used</h3>
+          <ul>
+            <li>HDTC Battery</li>
+            <li>Isolated Regulated Voltage</li>
+            <li>Voltmeter</li>
+            <li>Ammeter</li>
+            <li>Variable Resistance</li>
+            <li>Load (Bulb)</li>
+            <li>SCR</li>
+          </ul>
+        </div>
+        <div id="inputsec1" class="allinputsec" style="display: none">
+          <h3>INPUT SECTION</h3>
+          <br />
+          <button class="btn btn-primary" id="svg1_neg_cath">
+            battery (negative(black)) - cathode(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="false-1">
+            battery (positive(red)) - cathode(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="false-2">
+            load - cathode(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="svg1_pos_load">
+            battery (positive(black)) - load
+          </button>
+          <br />
+          <button class="btn btn-primary" id="svg1_load_anode">
+            load - anode(SCR)
+          </button>
+        </div>
+        <div id="inputsec2" class="allinputsec" style="display: none">
+          <h3>INPUT SECTION</h3>
+          <br />
+          <button class="btn btn-primary" id="svg2_pos_cathode">
+            battery (positive(black)) - cathode(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="false-12">
+            battery (negative(red)) - cathode(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="svg2_anode_load">
+            anode(SCR) - load
+          </button>
+          <br />
+          <button class="btn btn-primary" id="false-22">
+            load - cathode(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="svg2_neg_load">
+            battery (negative(red)) - load
+          </button>
+        </div>
+        <div id="inputsec3" class="allinputsec" style="display: none">
+          <h3>INPUT SECTION</h3>
+          <br />
+          <button class="btn btn-primary" id="svg3_iso-reg_neg_cath">
+            battery(positive) - cathode(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="false-13">
+            battery(negative) - cathode(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="svg3_HTDC-neg_cath">
+            HTDC (negative) - cathode(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="false-23">
+            load - cathode(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="svg3_HTDC-pos_load">
+            HTDC(positive) - load
+          </button>
+          <br />
+          <button class="btn btn-primary" id="svg3_iso-reg_pos_gate">
+            ISO-REGULATED(positive) - gate(SCR)
+          </button>
+          <br />
+          <button class="btn btn-primary" id="svg3_load_var-res">
+            load - var-resitance
+          </button>
+          <br />
+        </div>
+      </div>
+
+      <table class="table" id="tab1" style="display: none">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ig(gate)(mA)</th>
+            <th scope="col">Vbo(Volt)</th>
+            <th scope="col">I(mA)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table" id="tab2" style="display: none">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ig(gate)(mA)</th>
+            <th scope="col">Vbo(Volt)</th>
+            <th scope="col">I(mA)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table" id="tab3" style="display: none">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ig(gate)(mA)</th>
+            <th scope="col">Vbo(Volt)</th>
+            <th scope="col">I(mA)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function handleImageSelect(event) {
+        const selectedValue = event.target.value;
+        const imageDisplay = document.getElementById("svg-object");
+        const input0 = document.getElementById("inputsec0");
+        const input1 = document.getElementById("inputsec1");
+        const input2 = document.getElementById("inputsec2");
+        const input3 = document.getElementById("inputsec3");
+        switch (selectedValue) {
+          case "image0":
+            imageDisplay.data = "./images/SCR2.0 img 0.svg";
+            input0.style.display = "inline-flex";
+            input1.style.display = "none";
+            input2.style.display = "none";
+            input3.style.display = "none";
+            break;
+          case "image1":
+            imageDisplay.data = "./images/SCR2.0 img 1.svg";
+            input0.style.display = "none";
+            input1.style.display = "inline-flex";
+            input2.style.display = "none";
+            input3.style.display = "none";
+            document.getElementById("tab1").style.display = "block";
+            document.getElementById("tab2").style.display = "none";
+            document.getElementById("tab3").style.display = "none";
+            break;
+          case "image2":
+            imageDisplay.data = "./images/SCR2.0 img 2.svg";
+            input0.style.display = "none";
+            input1.style.display = "none";
+            input2.style.display = "inline-flex";
+            input3.style.display = "none";
+            document.getElementById("tab2").style.display = "block";
+            document.getElementById("tab1").style.display = "none";
+            document.getElementById("tab3").style.display = "none";
+            break;
+          case "image3":
+            imageDisplay.data = "./images/SCR2.0 img 3.svg";
+            input0.style.display = "none";
+            input1.style.display = "none";
+            input2.style.display = "none";
+            input3.style.display = "inline-flex";
+            document.getElementById("tab3").style.display = "block";
+            document.getElementById("tab1").style.display = "none";
+            document.getElementById("tab2").style.display = "none";
+            break;
+          default:
+            imageDisplay.data = "";
+        }
+      }
+      const imageSelect = document.getElementById("image-select");
+      imageSelect.addEventListener("change", handleImageSelect);
+
+      const svgObject = document.getElementById("svg-object");
+      svgObject.addEventListener("load", function () {
+        var count_1 = 0;
+        var bulb_1 = 0;
+        svgDoc = svgObject.contentDocument;
+        svg1but1 = document.getElementById("svg1_neg_cath");
+        svg1but1.onclick = function () {
+          count_1 = count_1 + 1;
+          svgDoc.getElementById("svg1_neg_cath_elem").style.visibility =
+            "visible";
+          svg1but1.disabled = true;
+        };
+
+        svg1but2 = document.getElementById("svg1_pos_load");
+        svg1but2.onclick = function () {
+          count_1 = count_1 + 1;
+          svgDoc.getElementById("svg1_pos_load_elem").style.visibility =
+            "visible";
+          svg1but2.disabled = true;
+        };
+
+        svg1but3 = document.getElementById("svg1_load_anode");
+        svg1but3.onclick = function () {
+          count_1 = count_1 + 1;
+          svgDoc.getElementById("svg1_load_anode_elem").style.visibility =
+            "visible";
+          svg1but3.disabled = true;
+        };
+
+        svg1but4 = document.getElementById("false-1");
+        svg1but4.onclick = function () {
+          alert("something went wrong");
+        };
+
+        svg1but5 = document.getElementById("false-2");
+        svg1but5.onclick = function () {
+          alert("something went wrong");
+        };
+        svg1select1 = svgDoc.getElementById("voltage1");
+
+        svg1select1.oninput = function () {
+          if (count_1 == 3) {
+            if (bulb_1 === 1) {
+              voltage1 = svgDoc.getElementById("voltage1").value;
+              svgDoc.getElementById("voltage-1-display").innerText = voltage1;
+              vbo_svg1 = svgDoc.getElementById("vbo_disp_svg1");
+              console.log(vbo_svg1);
+              vbo_svg1.innerHTML = voltage1;
+              current_svg1 = svgDoc.getElementById("current_disp_svg1");
+              current_svg1.innerHTML = (voltage1 / 318).toFixed(2);
+            } else {
+              alert("please complete the connections and turn on power");
+            }
+          } else {
+            alert("please complete the connections and turn on power");
+          }
+        };
+        svg1select2 = svgDoc.getElementById("voltage2");
+
+        svg1select2.oninput = function () {
+          if (count_1 == 3) {
+            if (bulb_1 === 1) {
+              gatecurr_svg1 = svgDoc.getElementById("ig_display_svg1");
+              voltage2 = svgDoc.getElementById("voltage2").value;
+              svgDoc.getElementById("voltage-2-display").innerText = voltage2;
+              gatecurr_svg1.innerHTML = voltage2 / 8;
+            } else {
+              alert("please complete the connections and turn on power");
+            }
+          } else {
+            alert("please complete the connections and turn on power");
+          }
+        };
+
+        const svg1_bulb = svgDoc.getElementById("powerbutton_1");
+        svg1_bulb.onclick = function () {
+          if (count_1 == 3) {
+            if (bulb_1 == 0) {
+              svgDoc.getElementById("bulbglow").style.fill = "yellow";
+              svgDoc.getElementById("powerbutton_1").style.transform =
+                "rotate(90deg)";
+              svgDoc.getElementById("powerbutton_1").style.transformOrigin =
+                "163.5px 155px";
+              svgDoc.getElementById("powerbutton_1").style.transition =
+                "transform 0.5s";
+              bulb_1 = 1;
+            } else if (bulb_1 == 1) {
+              svgDoc.getElementById("powerbutton_1").style.transform =
+                "rotate(0deg)";
+              svgDoc.getElementById("bulbglow").style.fill = "white";
+              bulb_1 = 0;
+            }
+          } else {
+            alert("please complete the connection");
+          }
+        };
+        svg1but1.disabled = false;
+        svg1but2.disabled = false;
+        svg1but3.disabled = false;
+      });
+
+      const svgObject1 = document.getElementById("svg-object");
+      svgObject1.addEventListener("load", function () {
+        var count_2 = 0;
+        var bulb_2 = 0;
+        svgDoc1 = svgObject.contentDocument;
+
+        svg2but1 = document.getElementById("svg2_pos_cathode");
+        svg2but1.onclick = function () {
+          count_2 = count_2 + 1;
+          svgDoc1.getElementById("svg2_pos_cathode_elem").style.visibility =
+            "visible";
+          svg2but1.disabled = true;
+        };
+
+        svg2but2 = document.getElementById("svg2_anode_load");
+        svg2but2.onclick = function () {
+          count_2 = count_2 + 1;
+          svgDoc1.getElementById("svg2_anode_load_elem").style.visibility =
+            "visible";
+          svg2but2.disabled = true;
+        };
+
+        svg2but3 = document.getElementById("svg2_neg_load");
+        svg2but3.onclick = function () {
+          count_2 = count_2 + 1;
+          svgDoc1.getElementById("svg2_neg_load_elem").style.visibility =
+            "visible";
+          svg2but3.disabled = true;
+        };
+
+        svg2but4 = document.getElementById("false-12");
+        svg2but4.onclick = function () {
+          alert("something went wrong");
+        };
+
+        svg2but5 = document.getElementById("false-22");
+        svg2but5.onclick = function () {
+          alert("something went wrong");
+        };
+
+        svg2select1 = svgDoc1.getElementById("voltage1_svg2");
+        svg2select1.oninput = function () {
+          if (count_2 == 3) {
+            if (bulb_2 === 1) {
+              voltage1_svg2 = svgDoc1.getElementById("voltage1_svg2").value;
+              svgDoc1.getElementById("voltage-1-display_svg2").innerText =
+                voltage1_svg2;
+              vbo_svg2 = svgDoc1.getElementById("vbo_disp_svg2");
+              vbo_svg2.innerHTML = voltage1_svg2;
+              console.log(voltage1_svg2);
+              if (voltage1_svg2 <= 200) {
+                current_svg2 = svgDoc1.getElementById("current_disp_svg2");
+                current_svg2.innerHTML = (voltage1_svg2 / 700).toFixed(2);
+              } else {
+                current_svg2 = svgDoc1.getElementById("current_disp_svg2");
+                current_svg2.innerHTML = (voltage1_svg2 / 15).toFixed(2);
+              }
+            } else {
+              console.log(count_2);
+              alert("please complete the connections and turn on the power.");
+            }
+          } else {
+            console.log(count_2);
+            alert("please complete the connections and turn on the power.");
+          }
+        };
+        svg2select2 = svgDoc1.getElementById("voltage2_svg2");
+        svg2select2.oninput = function () {
+          if (count_2 == 3) {
+            if (bulb_2 === 1) {
+              voltage2_svg2 = svgDoc.getElementById("voltage2_svg2").value;
+              svgDoc1.getElementById("voltage-2-display_svg2").innerText =
+                voltage2_svg2;
+              gatecurr_svg2 = svgDoc1.getElementById("ig_display_svg2");
+              gatecurr_svg2.innerHTML = (voltage2_svg2 / 6).toFixed(2);
+            } else {
+              console.log(count_2);
+              alert("please complete the connections and turn on the power.");
+            }
+          } else {
+            console.log(count_2);
+            alert("please complete the connections and turn on the power.");
+          }
+        };
+
+        const svg2_bulb = svgDoc1.getElementById("powerbutton_2");
+
+        svg2_bulb.onclick = function () {
+          if (count_2 == 3) {
+            if (bulb_2 == 0) {
+              svgDoc1.getElementById("blubglow_2").style.fill = "yellow";
+              svgDoc1.getElementById("powerbutton_2").style.transform =
+                "rotate(90deg)";
+              svgDoc1.getElementById("powerbutton_2").style.transformOrigin =
+                "163.5px 155px";
+              svgDoc1.getElementById("powerbutton_2").style.transition =
+                "transform 0.5s";
+              bulb_2 = 1;
+            } else if (bulb_2 == 1) {
+              svgDoc1.getElementById("powerbutton_2").style.transform =
+                "rotate(0deg)";
+              svgDoc1.getElementById("blubglow_2").style.fill = "white";
+              bulb_2 = 0;
+            }
+          } else {
+            alert("please complete the connections before");
+          }
+        };
+        svg2but1.disabled = false;
+        svg2but2.disabled = false;
+        svg2but3.disabled = false;
+      });
+
+      const svgObject2 = document.getElementById("svg-object");
+      svgObject2.addEventListener("load", function () {
+        var count_3 = 0;
+        var bulb_3 = 0;
+
+        svgDoc2 = svgObject2.contentDocument;
+        const svg3_bulb = svgDoc2.getElementById("powerbutton_3");
+        svg3_bulb.onclick = function () {
+          if (count_3 === 5) {
+            if (bulb_3 == 0) {
+              svgDoc2.getElementById("bulbglow_3").style.fill = "yellow";
+              svgDoc2.getElementById("powerbutton_3").style.transform =
+                "rotate(90deg)";
+              svgDoc2.getElementById("powerbutton_3").style.transformOrigin =
+                "73px 300px";
+              svgDoc2.getElementById("powerbutton_3").style.transition =
+                "transform 0.5s";
+              bulb_3 = 1;
+            } else if (bulb_3 == 1) {
+              svgDoc2.getElementById("powerbutton_3").style.transform =
+                "rotate(0deg)";
+              svgDoc2.getElementById("bulbglow_3").style.fill = "white";
+              bulb_3 = 0;
+            }
+          } else {
+            alert("please complete the connections before 1");
+          }
+        };
+        svg3select1 = svgDoc2.getElementById("voltage1_svg3");
+        svg3select1.oninput = function () {
+          if (count_3 === 5) {
+            if (bulb_3 === 1) {
+              voltage1_svg3 = svgDoc2.getElementById("voltage1_svg3").value;
+              svgDoc2.getElementById("voltage-1-display_svg3").innerText =
+                voltage1_svg3;
+              vbo_svg3 = svgDoc2.getElementById("vbo_disp_svg3");
+              vbo_svg3.innerHTML = voltage1_svg3;
+
+              current_svg3 = svgDoc2.getElementById("current_disp_svg3");
+              current_svg3.innerHTML = (voltage1_svg3 / 16.33).toFixed(2);
+            } else {
+              alert("please complete the connections and turn on the power");
+            }
+          } else {
+            alert("please complete the connnections and turn on the power");
+          }
+        };
+
+        var temp_var = svgDoc2.getElementById("voltage2_svg3");
+        temp_var.visibility = "hidden";
+        // svg3select2.diasbled=true;
+        // svg3select2.oninput = function () {
+
+        //     if (count_3 == 5) {
+        //         voltage2_svg3 = svgDoc2.getElementById('voltage2_svg3').value;
+        //         svgDoc2.getElementById("voltage-2-display_svg3").innerText = voltage2_svg3;
+        //     }
+        //     else {
+        //         alert("please complete the connections")
+        //     }
+        // }
+
+        svg3but1 = document.getElementById("svg3_load_var-res");
+        svg3but1.onclick = function () {
+          svgDoc2.getElementById("svg3_load_var-res_elem").style.visibility =
+            "visible";
+          count_3 = count_3 + 1;
+          svg3but1.disabled = true;
+        };
+        svg3but2 = document.getElementById("svg3_iso-reg_pos_gate");
+        svg3but2.onclick = function () {
+          svgDoc2.getElementById(
+            "svg3_iso-reg_pos_gate_elem"
+          ).style.visibility = "visible";
+          count_3 = count_3 + 1;
+          svg3but2.disabled = true;
+        };
+        svg3but3 = document.getElementById("svg3_HTDC-pos_load");
+        svg3but3.onclick = function () {
+          svgDoc2.getElementById("svg3_HTDC-pos_load_elem").style.visibility =
+            "visible";
+          count_3 = count_3 + 1;
+          svg3but3.disabled = true;
+        };
+        svg3but4 = document.getElementById("svg3_HTDC-neg_cath");
+        svg3but4.onclick = function () {
+          svgDoc2.getElementById("svg3_HTDC-neg_cath_elem").style.visibility =
+            "visible";
+          count_3 = count_3 + 1;
+          svg3but4.disabled = true;
+        };
+        svg3but5 = document.getElementById("svg3_iso-reg_neg_cath");
+        svg3but5.onclick = function () {
+          svgDoc2.getElementById(
+            "svg3_iso-reg_neg_cath_elem"
+          ).style.visibility = "visible";
+          count_3 = count_3 + 1;
+          svg3but5.disabled = true;
+        };
+        svg3but6 = document.getElementById("false-13");
+        svg3but6.onclick = function () {
+          alert("something went wrong");
+        };
+        svg3but7 = document.getElementById("false-23");
+        svg3but7.onclick = function () {
+          alert("something went wrong");
+        };
+
+        svg3but1.disabled = false;
+        svg3but2.disabled = false;
+        svg3but3.disabled = false;
+        svg3but4.disabled = false;
+        svg3but5.disabled = false;
+      });
+    </script>
+  </body>
+</html>
